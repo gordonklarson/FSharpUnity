@@ -1,0 +1,20 @@
+RESTRICTION: >= net461
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FSharp.Core (4.6.2)
+    Microsoft.Build (16.0.461)
+      Microsoft.Build.Framework (>= 16.0.461) - restriction: || (&& (>= net461) (>= netcoreapp2.1)) (>= net472)
+      Microsoft.VisualStudio.Setup.Configuration.Interop (>= 1.16.30) - restriction: >= net472
+      System.Collections.Immutable (>= 1.5) - restriction: || (&& (>= net461) (>= netcoreapp2.1)) (>= net472)
+      System.Threading.Tasks.Dataflow (>= 4.5.24) - restriction: >= net472
+    Microsoft.Build.Engine (16.0.461)
+      Microsoft.Build.Framework (>= 16.0.461) - restriction: >= net472
+    Microsoft.Build.Framework (16.0.461) - restriction: || (&& (>= net461) (>= netcoreapp2.1)) (>= net472)
+    Microsoft.VisualStudio.Setup.Configuration.Interop (1.16.30) - restriction: >= net472
+    System.Collections.Immutable (1.5) - restriction: || (&& (>= net461) (>= netcoreapp2.1)) (>= net472)
+    System.Threading.Tasks.Dataflow (4.9) - restriction: >= net472
+
+GROUP Build
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FAKE (5.8.4)

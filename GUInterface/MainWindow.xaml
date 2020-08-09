@@ -1,0 +1,26 @@
+﻿<Window x:Class="GUInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUInterface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="157,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="253"/>
+        <TextBox x:Name="CSharpProj" HorizontalAlignment="Left" Height="23" Margin="157,92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="253"/>
+        <TextBox x:Name="CSharpDLL" HorizontalAlignment="Left" Height="23" Margin="157,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="253"/>
+        <TextBox x:Name="FSprojLoc" HorizontalAlignment="Left" Height="23" Margin="157,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="253"/>
+        <TextBox x:Name="BuildDestination" HorizontalAlignment="Left" Height="23" Margin="157,148,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="253"/>
+        <Button x:Name="CSharpDLLButton" Content="Browse" HorizontalAlignment="Left" Margin="415,67,0,0" VerticalAlignment="Top" Width="75" Click="DLLButton_Click"/>
+        <Button x:Name="CSharpProjButton" Content="Browse" HorizontalAlignment="Left" Margin="415,95,0,0" VerticalAlignment="Top" Width="75" Click="CSharpProjButton_Click"/>
+        <Button x:Name="fsprojButton" Content="Browse" HorizontalAlignment="Left" Margin="415,123,0,0" VerticalAlignment="Top" Width="75" Click="FsprojButton_Click"/>
+        <Button x:Name="BuildDestinationButton" Content="Browse" HorizontalAlignment="Left" Margin="415,148,0,0" VerticalAlignment="Top" Width="75" Click="BuildDestinationButton_Click"/>
+        <Label Content="Assebly-CSharp.dll&#xD;&#xA;" HorizontalAlignment="Left" Margin="49,64,0,0" VerticalAlignment="Top" Height="28"/>
+        <Label Content="Assembly-CSharp.proj&#xD;&#xA;" HorizontalAlignment="Left" Margin="25,92,0,0" VerticalAlignment="Top" Height="25"/>
+        <Label Content="fsproj Location&#xD;&#xA;" HorizontalAlignment="Left" Margin="64,117,0,0" VerticalAlignment="Top" Height="28"/>
+        <Label Content="Build Destination&#xD;&#xA;" HorizontalAlignment="Left" Margin="49,145,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="UpdateProjectButton" Content="Update Project&#xD;&#xA;" HorizontalAlignment="Left" Margin="243,234,0,0" VerticalAlignment="Top" Width="180" Click="UpdateProjectButton_Click"/>
+
+    </Grid>
+</Window>
