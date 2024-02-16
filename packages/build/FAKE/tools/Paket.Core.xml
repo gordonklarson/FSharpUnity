@@ -682,6 +682,13 @@
  Converts the current package dependency graph to the simplest dependency graph.
 </summary>
 </member>
+<member name="M:Paket.Dependencies.SimplePackagesRestore">
+<summary>
+ Simple packages restore: 
+ - Doesn&apos;t restore projects
+ - Doesn&apos;t write targets file
+</summary>
+</member>
 <member name="M:Paket.Dependencies.ShowReferencesFor(Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}})">
 <summary>
  Shows all references files where the given package is referenced.
@@ -692,18 +699,18 @@
  Lists outdated packages.
 </summary>
 </member>
-<member name="M:Paket.Dependencies.Restore(System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},System.Boolean,System.Boolean,System.Boolean,System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String})">
+<member name="M:Paket.Dependencies.Restore(System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},System.Boolean,System.Boolean,System.Boolean,System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{System.String})">
 <summary>
  Restores packages for all available paket.references files
  (or all packages if onlyReferenced is false)
 </summary>
 </member>
-<member name="M:Paket.Dependencies.Restore(System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},System.String,System.Boolean,System.Boolean,System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String})">
+<member name="M:Paket.Dependencies.Restore(System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},System.String,System.Boolean,System.Boolean,System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{System.String})">
 <summary>
  Restores the given paket.references files.
 </summary>
 </member>
-<member name="M:Paket.Dependencies.Restore(System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Collections.FSharpList{System.String},System.Boolean,System.Boolean,System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String})">
+<member name="M:Paket.Dependencies.Restore(System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Collections.FSharpList{System.String},System.Boolean,System.Boolean,System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{System.String})">
 <summary>
  Restores the given paket.references files.
 </summary>
@@ -1555,6 +1562,11 @@ SecurityProtocolType.Tls ||| SecurityProtocolType.Tls11 ||| SecurityProtocolType
 <member name="M:Paket.Requirements.isTargetMatchingRestrictions(Paket.Requirements.FrameworkRestriction,Paket.TargetProfile)">
 <summary>
  Get if a target should be considered with the specified restrictions
+</summary>
+</member>
+<member name="T:Paket.InterprojectReferencesConstraint.InterprojectReferencesConstraint">
+<summary>
+ Constraints template for interproject references
 </summary>
 </member>
 <member name="M:Paket.Git.CommandHelper.runSimpleGitCommand(System.String,System.String)">

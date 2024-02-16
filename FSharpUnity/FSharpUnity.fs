@@ -6,7 +6,11 @@ open System.Collections.Generic
 open System.IO
 
 module FSharpUnity =
-    let UpdateProject (csharpProjectLocation : string) (fsharpProjectLocation : string) fsharpBuildLocation csharpAssemblyLocation =
+    let UpdateProject (fsharpProjectLocation : string) unityProjectLocation  =
+            let csharpProjectLocation = unityProjectLocation + "/Assembly-CSharp.csproj"
+            let csharpAssemblyLocation = unityProjectLocation + "/Assembly-CSharp.dll"
+            let fsharpBuildLocation = unityProjectLocation + "/Assets/Plugins/FSharp"
+            
             let projectCollection = new ProjectCollection()
             let p = csharpProjectLocation.Replace("""\\""", """\""")
             printfn "%s" p
@@ -51,7 +55,7 @@ module FSharpUnity =
                     |>ignore
                 )
 
-            fsharpProj.SetProperty("OutputPath",fsharpBuildLocation)
+            fsharpProj.SetProperty("OutputPath",unityProjectLocation)
             |>ignore
 
             match fsharpProj.GetItems "Reference"

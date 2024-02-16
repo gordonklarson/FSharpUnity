@@ -1761,6 +1761,11 @@
             The new ObserveOn operator run with an IScheduler in a lock-free manner.
             </summary>
         </member>
+        <member name="T:System.Reactive.Concurrency.ObserveOn`1.SchedulerLongRunning">
+            <summary>
+            The new ObserveOn operator run with an ISchedulerLongRunning in a mostly lock-free manner.
+            </summary>
+        </member>
         <member name="T:System.Reactive.Concurrency.SynchronizationContextScheduler">
             <summary>
             Represents an object that schedules units of work on a provided <seealso cref="T:System.Threading.SynchronizationContext"/>.
@@ -23402,12 +23407,6 @@
             </summary>
             <typeparam name="T">The element type of the sequence.</typeparam>
         </member>
-        <member name="F:System.Reactive.ObserveOnObserverNew`1._longRunning">
-            <summary>
-            If not null, the <see cref="F:System.Reactive.ObserveOnObserverNew`1._scheduler"/> supports
-            long running tasks.
-            </summary>
-        </member>
         <member name="F:System.Reactive.ObserveOnObserverNew`1._task">
             <summary>
             The current task representing a running drain operation.
@@ -23451,13 +23450,6 @@
             there is no drain currently running (wip > 0).
             </summary>
         </member>
-        <member name="F:System.Reactive.ObserveOnObserverNew`1.DrainLongRunningAction">
-            <summary>
-            The static action to be scheduled on a long running scheduler.
-            Avoids creating a delegate that captures <code>this</code>
-            whenever the signals have to be drained.
-            </summary>
-        </member>
         <member name="F:System.Reactive.ObserveOnObserverNew`1.DrainShortRunningFunc">
             <summary>
             The static action to be scheduled on a simple scheduler.
@@ -23473,7 +23465,7 @@
             <param name="recursiveScheduler">The scheduler to use for scheduling the next signal emission if necessary.</param>
             <returns>The IDisposable of the recursively scheduled task or an empty disposable.</returns>
         </member>
-        <member name="M:System.Reactive.ObserveOnObserverNew`1.DrainStep(System.Collections.Concurrent.ConcurrentQueue{`0},System.Boolean)">
+        <member name="M:System.Reactive.ObserveOnObserverNew`1.DrainStep(System.Collections.Concurrent.ConcurrentQueue{`0})">
             <summary>
             Executes a drain step by checking the disposed state,
             checking for the terminated state and for an
@@ -23486,15 +23478,65 @@
             In addition, the DrainStep is invoked from the DrainLongRunning's loop
             so reading _queue inside this method would still incur the same barrier
             overhead otherwise.</param>
-            <param name="delayError">Should the errors be delayed until all
-            queued items have been emitted to the downstream?</param>
-            <returns>True if the drain loop should stop.</returns>
         </member>
-        <member name="M:System.Reactive.ObserveOnObserverNew`1.DrainLongRunning">
+        <member name="T:System.Reactive.ObserveOnObserverLongRunning`1">
             <summary>
-            Emits as many signals as possible to the downstream observer
-            as this is executing a long-running scheduler so
-            it can occupy that thread as long as it needs to.
+            Signals events on a ISchedulerLongRunning by blocking the emission thread while waiting
+            for them from the upstream.
+            </summary>
+            <typeparam name="TSource">The element type of the sequence.</typeparam>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._scheduler">
+            <summary>
+            This will run a suspending drain task, hogging the backing thread
+            until the sequence terminates or gets disposed.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._queue">
+            <summary>
+            The queue for holding the OnNext items, terminal signals have their own fields.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._suspendGuard">
+            <summary>
+            Protects the suspension and resumption of the long running drain task.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._wip">
+            <summary>
+            The work-in-progress counter. If it jumps from 0 to 1, the drain task is resumed,
+            if it reaches 0 again, the drain task is suspended.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._done">
+            <summary>
+            Set to true if the upstream terminated.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._error">
+            <summary>
+            Set to a non-null Exception if the upstream terminated with OnError.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._disposed">
+            <summary>
+            Indicates the sequence has been disposed and the drain task should quit.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._runDrainOnce">
+            <summary>
+            Makes sure the drain task is scheduled only once, when the first signal
+            from upstream arrives.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1._drainTask">
+            <summary>
+            The disposable tracking the drain task.
+            </summary>
+        </member>
+        <member name="F:System.Reactive.ObserveOnObserverLongRunning`1.DrainLongRunning">
+            <summary>
+            Static reference to the Drain method, saves allocation.
             </summary>
         </member>
         <member name="M:System.Reactive.Sink`1.Dispose(System.Boolean)">

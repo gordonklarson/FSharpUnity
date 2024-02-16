@@ -405,6 +405,11 @@
  Contains helper functions which allow to interact with the F# Interactive.
 </summary>
 </member>
+<member name="M:Fake.Runtime.FakeRuntime.tryPrepareFakeScript(Fake.Runtime.Runners.FakeConfig)">
+<summary>
+ Doesn&apos;t create the .fake folder for this file if we don&apos;t detect a fake script
+</summary>
+</member>
 <member name="M:Fake.IO.GlobbingPatternModule.getBaseDirectoryIncludes(Fake.IO.IGlobbingPattern)">
 <summary>
  Get base include directories. Used to get a smaller set of directories from a globbing pattern.
@@ -454,6 +459,12 @@
 <member name="M:Fake.IO.Globbing.Tools.findToolFolderInSubPath(System.String,System.String)">
 <summary>
  Looks for a tool in all subfolders - returns the folder where the tool was found.
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.Tools.tryFindToolFolderInSubPath(System.String)">
+<summary>
+ Looks for a tool in all subfolders - returns the folder where the tool was found
+ or None if not found.
 </summary>
 </member>
 <member name="M:Fake.IO.Globbing.Tools.findToolInSubPath(System.String,System.String)">
@@ -603,7 +614,7 @@
 </member>
 <member name="M:Fake.IO.Path.combineTrimEnd(System.String,System.String)">
 <summary>
- Combines two path strings using Path.Combine
+ Combines two path strings using Path.Combine. Trims leading slashes of path2. This makes `combineTrimEnd &quot;/test&quot; &quot;/sub&quot;` return `/test/sub`
 </summary>
 </member>
 <member name="T:Fake.IO.Path">
@@ -638,7 +649,7 @@
 </member>
 <member name="M:Fake.IO.FileSystemOperators.op_AtAt(System.String,System.String)">
 <summary>
- Combines two path strings using Path.Combine
+ Combines two path strings using Path.Combine. Trims leading slashes of the right operand. This makes `&quot;/test&quot; @@ &quot;/sub&quot;` return `/test/sub`
 </summary>
 </member>
 <member name="M:Fake.IO.DirectoryInfo.copyRecursiveTo(System.Boolean,System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
@@ -1230,6 +1241,7 @@
 <member name="M:Fake.IO.Shell.moveFile(System.String,System.String)">
 <summary>
  Moves a single file to the target and overwrites the existing file.
+ If `fileName` is a directory the functions does nothing.
  ## Parameters
 
   - `target` - The target directory.
@@ -1595,7 +1607,7 @@
 <summary>
  Unzips a single file from the archive with the given file name.
  ## Parameters
-  - `predicate` - The predictae for the searched file in the archive.
+  - `predicate` - The predicate for the searched file in the archive.
   - `zipFileName` - The file name of the zip file.
 </summary>
 </member>
@@ -1697,6 +1709,247 @@
 <member name="T:Fake.Tracing.NAntXml">
 <summary>
  This module contains function which allow to trace build output
+</summary>
+</member>
+<member name="M:Fake.Net.Async.Async.apply``2(Microsoft.FSharp.Control.FSharpAsync{Microsoft.FSharp.Core.FSharpFunc{``0,``1}},Microsoft.FSharp.Control.FSharpAsync{``0})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Async.Async.bind``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}},Microsoft.FSharp.Control.FSharpAsync{``0})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Async.Async.map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Control.FSharpAsync{``0})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Async.Async.result``1">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Async.Async">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Result.Result.ResultBuilder">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Result.Result.apply``3(Microsoft.FSharp.Core.FSharpResult{Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Collections.FSharpList{``2}},Microsoft.FSharp.Core.FSharpResult{``0,Microsoft.FSharp.Collections.FSharpList{``2}})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Result.Result">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.sequenceResultA``2(Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Core.FSharpResult{``0,Microsoft.FSharp.Collections.FSharpList{``1}}})">
+<summary>
+ [omit]
+ Transform a &quot;list&lt;Result&gt;&quot; into a &quot;Result&lt;list&gt;&quot; 
+ and collect the results using apply.
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.traverseResultA``3(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpResult{``1,Microsoft.FSharp.Collections.FSharpList{``2}}},Microsoft.FSharp.Collections.FSharpList{``0})">
+<summary>
+ [omit]
+ Map a Result producing function over a list to get a new Result 
+ using applicative style
+ (&apos;a -&gt; Result&lt;&apos;b&gt;) -&gt; &apos;a list -&gt; Result&lt;&apos;b list&gt;
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.sequenceAsyncA``1(Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Control.FSharpAsync{``0}})">
+<summary>
+ [omit]
+ Transform a &quot;list&lt;Async&gt;&quot; into a &quot;Async&lt;list&gt;&quot; 
+ and collect the results using apply.
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.traverseAsyncA``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}},Microsoft.FSharp.Collections.FSharpList{``0})">
+<summary>
+ [omit]
+ Map a Async producing function over a list to get a new Async 
+ using applicative style
+ (&apos;a -&gt; Async&lt;&apos;b&gt;) -&gt; &apos;a list -&gt; Async&lt;&apos;b list&gt;
+</summary>
+</member>
+<member name="T:Fake.Net.List.List">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Http.PostMethod">
+<summary>
+ Option type for the HTTP verb
+</summary>
+</member>
+<member name="T:Fake.Net.Http.DownloadInfo">
+<summary>
+ Contains validated Uri and FilePath info for further download
+</summary>
+</member>
+<member name="T:Fake.Net.Http.FilePath">
+<summary>
+ Type aliases for local file path and error messages
+</summary>
+</member>
+<member name="P:Fake.Net.Http.DownloadParameters.Path">
+<summary>
+ The name of the local file that is to receive the data
+</summary>
+</member>
+<member name="P:Fake.Net.Http.DownloadParameters.Uri">
+<summary>
+ The URI from which to download data
+</summary>
+</member>
+<member name="T:Fake.Net.Http.DownloadParameters">
+<summary>
+ Input parameter type
+</summary>
+</member>
+<member name="M:Fake.Net.Http.getWithHeaders(System.String,System.String,Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String)">
+<summary>
+ Like &apos;get&apos; but allow to set headers and returns the response headers.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.upload(System.String,System.String)">
+<summary>
+ Upload the given file to the given endpoint
+</summary>
+</member>
+<member name="M:Fake.Net.Http.post(System.String,System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP POST command and retrives the information.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `url` - The URL to perform the POST operation.
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `data` - The data to post.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.postCommand(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP POST command and retrives the information.    
+ This function will automatically include a &quot;source&quot; parameter if the &quot;Source&quot; property is set.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `headerF` - A function which allows to manipulate the HTTP headers.
+  - `url` - The URL to perform the POST operation.
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `data` - The data to post.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.postCommandAsync(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP POST command and retrives the information.    
+ This function will automatically include a &quot;source&quot; parameter if the &quot;Source&quot; property is set.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `headerF` - A function which allows to manipulate the HTTP headers.
+  - `url` - The URL to perform the POST operation.
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `data` - The data to post.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.get(System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP GET command and retrives the information.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `url` - The URL to perform the GET operation.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.getAsync(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP GET command and retrives the information.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `url` - The URL to perform the GET operation.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadFiles(Microsoft.FSharp.Collections.FSharpList{Fake.Net.Http.DownloadParameters})">
+<summary>
+ Download list of Uri&apos;s in parallel
+ DownloadParameters -&gt; string list
+ ## Parameters
+  - `input` - List of Http.DownloadParameters. Each Http.DownloadParameters record type contains Uri and file path
+
+ ## Returns
+  - `string list` type. Contains a list of downloaded file paths
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadFile(System.String,System.String)">
+<summary>
+ Download file by the given file path and Uri
+ string -&gt; string -&gt; string
+ ## Parameters
+  - `localFilePath` - A local file path to download file
+  - `uri` - A Uri to download from
+
+ ## Returns
+  - `string` type. Contains a downloaded file path
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadFileAsync(Fake.Net.Http.DownloadParameters)">
+<summary>
+ [omit]     
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadStreamToFileAsync(Fake.Net.Http.DownloadInfo)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.saveStreamToFileAsync(System.String,System.IO.Stream)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.processResults``2(Microsoft.FSharp.Core.FSharpResult{``0,``1})">
+<summary>
+ Unwraps the Result type and throws an exception if download process failed  
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.createDownloadInfo(Fake.Net.Http.DownloadParameters)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.createUri(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.createFilePath(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Http">
+<summary>
+ HTTP Client for downloading files
 </summary>
 </member>
 <member name="T:Fake.JavaScript.Npm.NpmParams">
@@ -1988,7 +2241,8 @@
 </member>
 <member name="M:Fake.Tools.Git.CommandHelper.findGitDir(System.String)">
 <summary>
- Searches the .git directory recursivly up to the root.
+ Searches for a .git directory in the specified directory or any parent directory.
+ &lt;exception href=&quot;System.InvalidOperationException&quot;&gt;Thrown when no .git directory is found.&lt;/exception&gt;
 </summary>
 </member>
 <member name="M:Fake.Tools.Git.CommandHelper.fixPath(System.String)">
@@ -2995,237 +3249,6 @@ common parameters
  Default server options.
 </summary>
 </member>
-<member name="M:Fake.Net.Async.Async.apply``2(Microsoft.FSharp.Control.FSharpAsync{Microsoft.FSharp.Core.FSharpFunc{``0,``1}},Microsoft.FSharp.Control.FSharpAsync{``0})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Async.Async.bind``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}},Microsoft.FSharp.Control.FSharpAsync{``0})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Async.Async.map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Control.FSharpAsync{``0})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Async.Async.result``1">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="T:Fake.Net.Async.Async">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="T:Fake.Net.Result.Result.ResultBuilder">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Result.Result.apply``3(Microsoft.FSharp.Core.FSharpResult{Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Collections.FSharpList{``2}},Microsoft.FSharp.Core.FSharpResult{``0,Microsoft.FSharp.Collections.FSharpList{``2}})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="T:Fake.Net.Result.Result">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.List.List.sequenceResultA``2(Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Core.FSharpResult{``0,Microsoft.FSharp.Collections.FSharpList{``1}}})">
-<summary>
- [omit]
- Transform a &quot;list&lt;Result&gt;&quot; into a &quot;Result&lt;list&gt;&quot; 
- and collect the results using apply.
-</summary>
-</member>
-<member name="M:Fake.Net.List.List.traverseResultA``3(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpResult{``1,Microsoft.FSharp.Collections.FSharpList{``2}}},Microsoft.FSharp.Collections.FSharpList{``0})">
-<summary>
- [omit]
- Map a Result producing function over a list to get a new Result 
- using applicative style
- (&apos;a -&gt; Result&lt;&apos;b&gt;) -&gt; &apos;a list -&gt; Result&lt;&apos;b list&gt;
-</summary>
-</member>
-<member name="M:Fake.Net.List.List.sequenceAsyncA``1(Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Control.FSharpAsync{``0}})">
-<summary>
- [omit]
- Transform a &quot;list&lt;Async&gt;&quot; into a &quot;Async&lt;list&gt;&quot; 
- and collect the results using apply.
-</summary>
-</member>
-<member name="M:Fake.Net.List.List.traverseAsyncA``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}},Microsoft.FSharp.Collections.FSharpList{``0})">
-<summary>
- [omit]
- Map a Async producing function over a list to get a new Async 
- using applicative style
- (&apos;a -&gt; Async&lt;&apos;b&gt;) -&gt; &apos;a list -&gt; Async&lt;&apos;b list&gt;
-</summary>
-</member>
-<member name="T:Fake.Net.List.List">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="T:Fake.Net.Http.PostMethod">
-<summary>
- Option type for the HTTP verb
-</summary>
-</member>
-<member name="T:Fake.Net.Http.DownloadInfo">
-<summary>
- Contains validated Uri and FilePath info for further download
-</summary>
-</member>
-<member name="T:Fake.Net.Http.FilePath">
-<summary>
- Type aliases for local file path and error messages
-</summary>
-</member>
-<member name="P:Fake.Net.Http.DownloadParameters.Path">
-<summary>
- The name of the local file that is to receive the data
-</summary>
-</member>
-<member name="P:Fake.Net.Http.DownloadParameters.Uri">
-<summary>
- The URI from which to download data
-</summary>
-</member>
-<member name="T:Fake.Net.Http.DownloadParameters">
-<summary>
- Input parameter type
-</summary>
-</member>
-<member name="M:Fake.Net.Http.post(System.String,System.String,System.String,System.String)">
-<summary>
- Executes an HTTP POST command and retrives the information.
- It returns the response of the request, or null if we got 404 or nothing.
- ## Parameters
-
-  - `url` - The URL to perform the POST operation.
-  - `userName` - The username to use with the request.
-  - `password` - The password to use with the request.
-  - `data` - The data to post.
-</summary>
-</member>
-<member name="M:Fake.Net.Http.postCommand(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String,System.String)">
-<summary>
- Executes an HTTP POST command and retrives the information.    
- This function will automatically include a &quot;source&quot; parameter if the &quot;Source&quot; property is set.
- It returns the response of the request, or null if we got 404 or nothing.
- ## Parameters
-
-  - `headerF` - A function which allows to manipulate the HTTP headers.
-  - `url` - The URL to perform the POST operation.
-  - `userName` - The username to use with the request.
-  - `password` - The password to use with the request.
-  - `data` - The data to post.
-</summary>
-</member>
-<member name="M:Fake.Net.Http.postCommandAsync(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String,System.String)">
-<summary>
- Executes an HTTP POST command and retrives the information.    
- This function will automatically include a &quot;source&quot; parameter if the &quot;Source&quot; property is set.
- It returns the response of the request, or null if we got 404 or nothing.
- ## Parameters
-
-  - `headerF` - A function which allows to manipulate the HTTP headers.
-  - `url` - The URL to perform the POST operation.
-  - `userName` - The username to use with the request.
-  - `password` - The password to use with the request.
-  - `data` - The data to post.
-</summary>
-</member>
-<member name="M:Fake.Net.Http.get(System.String,System.String,System.String)">
-<summary>
- Executes an HTTP GET command and retrives the information.
- It returns the response of the request, or null if we got 404 or nothing.
- ## Parameters
-
-  - `userName` - The username to use with the request.
-  - `password` - The password to use with the request.
-  - `url` - The URL to perform the GET operation.
-</summary>
-</member>
-<member name="M:Fake.Net.Http.getAsync(System.String,System.String,System.String)">
-<summary>
- Executes an HTTP GET command and retrives the information.
- It returns the response of the request, or null if we got 404 or nothing.
- ## Parameters
-
-  - `userName` - The username to use with the request.
-  - `password` - The password to use with the request.
-  - `url` - The URL to perform the GET operation.
-</summary>
-</member>
-<member name="M:Fake.Net.Http.downloadFiles(Microsoft.FSharp.Collections.FSharpList{Fake.Net.Http.DownloadParameters})">
-<summary>
- Download list of Uri&apos;s in parallel
- DownloadParameters -&gt; string list
- ## Parameters
-  - `input` - List of Http.DownloadParameters. Each Http.DownloadParameters record type contains Uri and file path
-
- ## Returns
-  - `string list` type. Contains a list of downloaded file paths
-</summary>
-</member>
-<member name="M:Fake.Net.Http.downloadFile(System.String,System.String)">
-<summary>
- Download file by the given file path and Uri
- string -&gt; string -&gt; string
- ## Parameters
-  - `localFilePath` - A local file path to download file
-  - `uri` - A Uri to download from
-
- ## Returns
-  - `string` type. Contains a downloaded file path
-</summary>
-</member>
-<member name="M:Fake.Net.Http.downloadFileAsync(Fake.Net.Http.DownloadParameters)">
-<summary>
- [omit]     
-</summary>
-</member>
-<member name="M:Fake.Net.Http.downloadStreamToFileAsync(Fake.Net.Http.DownloadInfo)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Http.saveStreamToFileAsync(System.String,System.IO.Stream)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Http.processResults``2(Microsoft.FSharp.Core.FSharpResult{``0,``1})">
-<summary>
- Unwraps the Result type and throws an exception if download process failed  
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Http.createDownloadInfo(Fake.Net.Http.DownloadParameters)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Http.createUri(System.String)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Net.Http.createFilePath(System.String)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="T:Fake.Net.Http">
-<summary>
- HTTP Client for downloading files
-</summary>
-</member>
 <member name="P:Fake.Azure.CloudServices.PackageCloudServiceParams.OutputPath">
 <summary>
  The output path for the .cspkg.
@@ -3607,9 +3630,94 @@ common parameters
  This is the reverse of https://msdn.microsoft.com/en-us/library/17w5ykft.aspx
 </summary>
 </member>
+<member name="P:Fake.Core.Arguments.ToStartInfo">
+<summary>
+ Create a new command line string which can be used in a ProcessStartInfo object.
+ If given, returns the exact input of `OfWindowsCommandLine` otherwise `ToWindowsCommandLine` (with some special code for `mono`) is used.
+</summary>
+</member>
+<member name="P:Fake.Core.Arguments.ToLinuxShellCommandLine">
+<summary>
+ Escape the given argument list according to a unix shell (bash)
+</summary>
+</member>
 <member name="M:Fake.Core.Arguments.OfWindowsCommandLine(System.String)">
 <summary>
  See https://msdn.microsoft.com/en-us/library/17w5ykft.aspx
+</summary>
+</member>
+<member name="M:Fake.Core.Arguments.OfStartInfo(System.String)">
+<summary>
+ Create a new arguments object from a given startinfo-conforming-escaped command line string.
+ Same as `OfWindowsCommandLine`.
+</summary>
+</member>
+<member name="M:Fake.Core.Arguments.OfArgs(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Create a new arguments object from the given list of arguments
+</summary>
+</member>
+<member name="T:Fake.Core.Arguments">
+<summary>
+ Represents a list of arguments
+</summary>
+</member>
+<member name="T:Fake.Core.RawCreateProcess">
+<summary>
+ A raw (untyped) way to start a process
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification.CreatePipe">
+<summary>
+ Retrieve the raw pipe from the process (the StreamRef is set with a stream you can write into for &apos;stdin&apos; and read from for &apos;stdout&apos; and &apos;stderr&apos;)
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification.UseStream">
+<summary>
+ Redirect to the given stream (the stream must be provided by the user and be writeable for &apos;stdout&apos; &amp; &apos;stderr&apos; and readable for &apos;stdin&apos;)
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification.Inherit">
+<summary>
+ Do not redirect, or use normal process inheritance
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification">
+<summary>
+ Various options to redirect streams.
+</summary>
+</member>
+<member name="T:Fake.Core.DataRef`1">
+<summary>
+ Represents basically an &quot;out&quot; parameter, allows to retrieve a value after a certain point in time.
+ Used to retrieve &quot;pipes&quot;
+</summary>
+</member>
+<member name="T:Fake.Core.Command.RawCommand">
+<summary>
+ Windows: https://msdn.microsoft.com/en-us/library/windows/desktop/bb776391(v=vs.85).aspx
+ Linux(mono): https://github.com/mono/mono/blob/0bcbe39b148bb498742fc68416f8293ccd350fb6/eglib/src/gshell.c#L32-L104 (because we need to create a commandline string internally which need to go through that code)
+ Linux(netcore): See https://github.com/fsharp/FAKE/pull/1281/commits/285e585ec459ac7b89ca4897d1323c5a5b7e4558 and https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.Process/src/System/Diagnostics/Process.Unix.cs#L443-L522
+</summary>
+</member>
+<member name="T:Fake.Core.Command">
+<summary>
+ The type of command to execute
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcess`1">
+<summary>
+ Handle for creating a process and returning potential results.
+</summary>
+</member>
+<member name="T:Fake.Core.ProcessOutput">
+<summary>
+ The output of the process. If ordering between stdout and stderr is important you need to use streams.
+</summary>
+</member>
+<member name="T:Fake.Core.IProcessHook`1">
+<summary>
+ Hook for events when an CreateProcess is executed.
 </summary>
 </member>
 <member name="M:Fake.Core.Shell.Exec(System.String,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{System.String})">
@@ -5043,6 +5151,446 @@ common parameters
  on the same thread where the operation was started.
 </summary>
 </member>
+<member name="M:Fake.Core.ProcessHelpers.Event.guard``2(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Control.IEvent{``0,``1})">
+<summary>
+ Executes f just after adding the event-handler
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessHelpers.AsyncExtensions.AsyncBuilder.Bind``1(Microsoft.FSharp.Control.FSharpAsyncBuilder,System.Threading.Tasks.Task,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Control.FSharpAsync{``0}})">
+<summary>
+ An extension method that overloads the standard &apos;Bind&apos; of the &apos;async&apos; builder. The new overload awaits on
+ a standard .NET task which does not commpute a value
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessHelpers.AsyncExtensions.AsyncBuilder.Bind``2(Microsoft.FSharp.Control.FSharpAsyncBuilder,System.Threading.Tasks.Task{``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}})">
+<summary>
+ An extension method that overloads the standard &apos;Bind&apos; of the &apos;async&apos; builder. The new overload awaits on
+ a standard .NET task
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessHelpers.AsyncExtensions.Async.StartAsTaskProperCancel.Static``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Threading.Tasks.TaskCreationOptions},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})">
+<summary>
+ Like StartAsTask but gives the computation time to so some regular cancellation work
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.ofList(Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Create a arguments instance from a list.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toArray(Fake.Core.Arguments)">
+<summary>
+ Convert the arguments instance to a string array
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toList(Fake.Core.Arguments)">
+<summary>
+ Convert the arguments instance to a string list
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendNotEmpty(System.String,System.String,Fake.Core.Arguments)">
+<summary>
+ Append an argument prefixed by another if the value is not null or empty
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendIf(System.Boolean,System.String,Fake.Core.Arguments)">
+<summary>
+ Append an argument to a command line if a condition is true.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendOption(System.String,Microsoft.FSharp.Core.FSharpOption{System.String},Fake.Core.Arguments)">
+<summary>
+ Append an argument prefixed by another if the value is Some.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.append(System.Collections.Generic.IEnumerable{System.String},Fake.Core.Arguments)">
+<summary>
+ Append all arguments after the current arguments    
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.withPrefix(System.Collections.Generic.IEnumerable{System.String},Fake.Core.Arguments)">
+<summary>
+ Append the given arguments before all current arguments 
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toStartInfo(Fake.Core.Arguments)">
+<summary>
+ Create a new command line string which can be used in a ProcessStartInfo object.
+ If given, returns the exact input of `OfWindowsCommandLine` otherwise `ToWindowsCommandLine` (with some special code for `mono`) is used.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toLinuxShellCommandLine(Fake.Core.Arguments)">
+<summary>
+ Escape the given argument list according to a unix shell (bash)
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toWindowsCommandLine(Fake.Core.Arguments)">
+<summary>
+ This is the reverse of https://msdn.microsoft.com/en-us/library/17w5ykft.aspx
+</summary>
+</member>
+<member name="T:Fake.Core.ArgumentsModule">
+<summary>
+ Module for working with an `Arguments` instance
+</summary>
+</member>
+<member name="M:Fake.Core.Args.fromWindowsCommandLine(System.String)">
+<summary>
+ Read a windows command line string into its arguments
+</summary>
+</member>
+<member name="M:Fake.Core.Args.toLinuxShellCommandLine(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Escape the given argument list according to a unix shell (bash)
+</summary>
+</member>
+<member name="M:Fake.Core.Args.toWindowsCommandLine(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Convert the given argument list to a conforming windows command line string, escapes parameter in quotes if needed (currently always but this might change).
+</summary>
+</member>
+<member name="T:Fake.Core.Args">
+<summary>
+ Helper functions for proper command line parsing
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findPath(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Tries to find the tool via AppSettings. If no path has the right tool we are trying the PATH system variable.
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindPath(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Tries to find the tool via AppSettings. If no path has the right tool we are trying the PATH system variable.
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindTool(System.String,System.String)">
+<summary>
+ Tries to find the tool via Env-Var. If no path has the right tool we are trying the PATH system variable.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindFileOnPath(System.String)">
+<summary>
+ Searches the current directory and the directories within the PATH
+ environment variable for the given file. If successful returns the full
+ path to the file.
+ ## Parameters
+  - `file` - The file to locate
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFilesOnPath(System.String)">
+<summary>
+ Searches in PATH for the given file and returnes the result ordered by precendence
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for the given file, failing if not found.
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for all occurrences of the given file name
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFiles(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for all occurrences of the given file name, on windows PATHEXT is considered (and preferred when searching)
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFilesInternal(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for all occurrences of the given file name
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.InternalStreams.StreamModule.duplicate``1(Fake.Core.InternalStreams.IStream{``0})">
+<summary>
+ Duplicates the given stream, which means returning two stream instances
+ which will read the same data. 
+ At the same time buffers all data (ie read from s as fast as possible).
+ Any data written to the returned instances will be written to the given instance.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withTimeout``1(System.TimeSpan,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the given timeout      
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.warnOnExitCode(System.String,Fake.Core.CreateProcess{Microsoft.FSharp.Core.Unit})">
+<summary>
+ Like`ensureExitCode` but only triggers a warning instead of failing.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.ensureExitCode``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Makes sure the exit code is `0`, otherwise a detailed exception is thrown (showing the command line).    
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.ensureExitCodeWithMessage``1(System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ throws an exception with the given message if `exitCode &lt;&gt; 0`     
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnExited``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{System.Int32,``1}},Fake.Core.CreateProcess{``0})">
+<summary>
+ Execute the given function after the process has been exited and the previous result has been calculated.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withOutputEventsNotNull``1(Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Like `withOutputEvents` but skips `null` objects.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withOutputEvents``1(Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Calls the given functions whenever a new output-line is received.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.redirectOutput``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Starts redirecting the output streams and collects all data at the end.        
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.mapResult``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Fake.Core.CreateProcess{Fake.Core.ProcessResult{``0}})">
+<summary>
+ Map only the result object and leave the exit code in the result type.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Fake.Core.CreateProcess{``0})">
+<summary>
+ Map the current result to a new type.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withStandardInput``1(Fake.Core.StreamSpecification,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the standard input stream.                    
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withStandardError``1(Fake.Core.StreamSpecification,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the standard error stream.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withStandardOutput``1(Fake.Core.StreamSpecification,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the standard output stream.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.setEnvironmentVariable``1(System.String,System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the given environment variable.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.getEnvironmentMap``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Retrieve the current environment map.    
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withEnvironmentMap``1(System.Collections.Immutable.IImmutableDictionary{System.String,System.String},Fake.Core.CreateProcess{``0})">
+<summary>
+ Sets the given environment map.        
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withEnvironment``1(Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},Fake.Core.CreateProcess{``0})">
+<summary>
+ Sets the given environment variables
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnStarted``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Execute the given function right after the process is started.          
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnFinally``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Execute the given function when the process is cleaned up.        
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnSetup``2(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Fake.Core.CreateProcess{``1})">
+<summary>
+ Execute the given function before the process is started 
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.appendSimpleFuncs``3(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{System.Diagnostics.Process,Microsoft.FSharp.Core.Unit}},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Control.FSharpAsync{``1},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{System.Threading.Tasks.Task{Fake.Core.RawProcessResult},Microsoft.FSharp.Control.FSharpAsync{``2}}}},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``1})">
+<summary>
+ Attaches the given functions to the current CreateProcess instance.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.mapFilePath``1(Microsoft.FSharp.Core.FSharpFunc{System.String,System.String},Fake.Core.CreateProcess{``0})">
+<summary>
+ Map the file-path according to the given function.            
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.replaceFilePath``1(System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ Replace the file-path
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withCommand``1(Fake.Core.Command,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the command to the given one.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.disableTraceCommand``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Disable the default trace of started processes.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withWorkingDirectory``1(System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the working directory of the new process.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.copyRedirectedProcessOutputsToStandardOutputs``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Copies std-out and std-err into the corresponding `System.Console` streams (by using interceptStream).
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.interceptStream(System.IO.Stream,Fake.Core.StreamSpecification)">
+<summary>
+ intercept the given StreamSpecification and writes the intercepted data into target.
+ Throws if the stream is not redirected (ie is Inherit).
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.ofStartInfo(System.Diagnostics.ProcessStartInfo)">
+<summary>
+ Create a CreateProcess from the given `ProcessStartInfo`
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromRawCommand(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Create a CreateProcess from the given file and arguments
+ 
+ ### Example
+ 
+     CreateProcess.fromRawCommand &quot;cmd&quot; [ &quot;/C&quot;;  &quot;echo test&quot; ]
+     |&gt; Proc.run
+     |&gt; ignore
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromRawWindowsCommandLine(System.String,System.String)">
+<summary>
+ Create a CreateProcess from the given file and arguments
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromRawCommandLine(System.String,System.String)">
+<summary>
+ Create a CreateProcess from the given file and arguments
+ 
+ ### Example
+ 
+     CreateProcess.fromRawCommandLine &quot;cmd&quot; &quot;/C \&quot;echo test\&quot;&quot;
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+ ### Using BlackFox.CommandLine
+ 
+ See [`BlackFox.CommandLine`](https://github.com/vbfox/FoxSharp/tree/master/src/BlackFox.CommandLine) for details
+ 
+     open BlackFox.CommandLine
+ 
+     CmdLine.empty
+     |&gt; CmdLine.append &quot;build&quot;
+     |&gt; CmdLine.appendIf noRestore &quot;--no-restore&quot;
+     |&gt; CmdLine.appendPrefixIfSome &quot;--framework&quot; framework
+     |&gt; CmdLine.appendPrefixf &quot;--configuration&quot; &quot;%A&quot; configuration
+     |&gt; CmdLine.toString
+     |&gt; CreateProcess.fromRawCommandLine &quot;dotnet.exe&quot;
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromCommand(Fake.Core.Command)">
+<summary>
+ Create a simple `CreateProcess&lt;_&gt;` instance from the given command.
+ 
+ ### Example
+ 
+     Command.RawCommand(&quot;file&quot;, Arguments.OfArgs [&quot;arg1&quot;; &quot;arg2&quot;])
+     |&gt; CreateProcess.fromCommand
+     |&gt; Proc.run
+     |&gt; ignore
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcess">
+<summary>
+ Module for creating and modifying CreateProcess&lt;&apos;TRes&gt; instances.
+ You can manage:
+ 
+ - The command (ie file to execute and arguments)
+ - The working directory
+ - The process environment
+ - Stream redirection and pipes
+ - Timeout for the process to exit
+ - The result and the result transformations (`map`, `mapResult`)
+ 
+ More extensions can be found in the [CreateProcess Extensions](apidocs/v5/fake-core-createprocessext-createprocess.html)
+ 
+ ### Example
+ 
+     Command.RawCommand(&quot;file&quot;, Arguments.OfArgs [&quot;arg1&quot;; &quot;arg2&quot;])
+     |&gt; CreateProcess.fromCommand
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.run``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Like `start` but waits for the result synchronously.
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.startAndAwait``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Convenience method when you immediatly want to await the result of &apos;start&apos;, just note that
+ when used incorrectly this might lead to race conditions 
+ (ie if you use StartAsTask and access reference cells in CreateProcess after that returns)
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.start``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Starts the given process and waits for the `Result` task. (see `startRaw` documentation). 
+ In most common scenarios the `Result` includes the `Raw` task or the exit-code one way or another.
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.startRawSync``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Similar to `startRaw` but waits until the process has been started. 
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.startRaw``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Starts a process. The process has been started successfully after the returned task has been completed.
+ After the task has been completed you retrieve two other tasks:
+ - One `Raw`-Task to indicate when the process exited (and return the exit-code for example)
+ - One `Result`-Task for the final result object.
+ 
+ Note: The `Result` task might finish while the `Raw` task is still running, 
+ this enables you to work with the result object before the process has exited.
+ For example consider a long running process where you are only interested in the first couple of output lines
+</summary>
+</member>
+<member name="T:Fake.Core.Proc">
+<summary>
+ Module to start or run processes, used in combination with the `CreateProcess` API.
+ 
+ ### Example
+ 
+     #r &quot;paket: 
+     nuget Fake.Core.Process //&quot;
+     open Fake.Core
+     CreateProcess.fromRawCommand &quot;./folder/mytool.exe&quot; [&quot;arg1&quot;; &quot;arg2&quot;]
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+</summary>
+</member>
 <member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithWorkingDirectory(Fake.Core.ProcStartInfo,System.String)">
 <summary>
  When UseShellExecute is true, the fully qualified name of the directory that contains the process to be started. When the UseShellExecute property is false, the working directory for the process to be started. The default is an empty string (&quot;&quot;).
@@ -5220,61 +5768,6 @@ common parameters
  sure that none of them depend on the output of another.
 </summary>
 </member>
-<member name="M:Fake.Core.Process.findPath(System.String,System.String,System.String)">
-<summary>
- Tries to find the tool via AppSettings. If no path has the right tool we are trying the PATH system variable.
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Core.Process.tryFindPath(System.String,System.String,System.String)">
-<summary>
- Tries to find the tool via AppSettings. If no path has the right tool we are trying the PATH system variable.
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Core.Process.tryFindTool(System.String,System.String)">
-<summary>
- Tries to find the tool via Env-Var. If no path has the right tool we are trying the PATH system variable.
-</summary>
-</member>
-<member name="M:Fake.Core.Process.appSettings(System.String,System.String)">
-<summary>
- Returns the AppSettings for the key - Splitted on ;
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Core.Process.tryFindFileOnPath(System.String)">
-<summary>
- Searches the current directory and the directories within the PATH
- environment variable for the given file. If successful returns the full
- path to the file.
- ## Parameters
-  - `file` - The file to locate
-</summary>
-</member>
-<member name="M:Fake.Core.Process.findFilesOnPath(System.String)">
-<summary>
- Searches in PATH for the given file and returnes the result ordered by precendence
-</summary>
-</member>
-<member name="M:Fake.Core.Process.findFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
-<summary>
- Searches the given directories for the given file, failing if not found.
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Core.Process.tryFindFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
-<summary>
- Searches the given directories for all occurrences of the given file name
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Core.Process.findFiles(System.Collections.Generic.IEnumerable{System.String},System.String)">
-<summary>
- Searches the given directories for all occurrences of the given file name
- [omit]
-</summary>
-</member>
 <member name="M:Fake.Core.Process.parametersToString(System.String,System.String,System.Collections.Generic.IEnumerable{Microsoft.FSharp.Core.FSharpOption{System.Tuple{System.String,System.String}}})">
 <summary>
  [omit]
@@ -5358,7 +5851,7 @@ common parameters
   - `timeOut` - The timeout for the process.
  ## Sample
 
-     let result = ExecProcess (fun info -&gt;  
+     let result = Process.execSimple (fun info -&gt;  
                        info.FileName &lt;- &quot;c:/MyProc.exe&quot;
                        info.WorkingDirectory &lt;- &quot;c:/workingDirectory&quot;
                        info.Arguments &lt;- &quot;-v&quot;) (TimeSpan.FromMinutes 5.0)
@@ -5408,16 +5901,6 @@ common parameters
  Existing values will be overriden.
 </summary>
 </member>
-<member name="P:Fake.Core.Process.enableProcessTracingVar">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="P:Fake.Core.Process.redirectOutputToTraceVar">
-<summary>
- [omit]
-</summary>
-</member>
 <member name="M:Fake.Core.Process.startProcess(System.Diagnostics.Process)">
 <summary>
  [omit]
@@ -5434,6 +5917,16 @@ common parameters
  If set to false (default) only mono processes will be changed.
 </summary>
 </member>
+<member name="P:Fake.Core.Process.enableProcessTracingVar">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.Process.redirectOutputToTraceVar">
+<summary>
+ [omit]
+</summary>
+</member>
 <member name="P:Fake.Core.Process.startedProcessesVar">
 <summary>
  [omit]
@@ -5442,6 +5935,34 @@ common parameters
 <member name="M:Fake.Core.Process.kill(System.Diagnostics.Process)">
 <summary>
  Kills the given process
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcessExt.CreateProcess.withFramework``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Ensures the executable is run with the full framework. On non-windows platforms that means running the tool by invoking &apos;mono&apos;.
+ 
+ ### Example
+ 
+     Command.RawCommand(&quot;file.exe&quot;, Arguments.OfArgs [&quot;arg1&quot;; &quot;arg2&quot;])
+     |&gt; CreateProcess.fromCommand
+     |&gt; CreateProcess.withFramework // start with mono if needed.
+     |&gt; Proc.run
+     |&gt; ignore
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcessExt.CreateProcess">
+<summary>
+ Extensions to [`CreateProcess`](apidocs/v5/fake-core-createprocess.html).
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcessExt">
+<summary>
+ Some extensions for the `CreateProcess` module, opened automatically (use add `open Fake.Core`)
+</summary>
+</member>
+<member name="T:Fake.Core.TargetModule.OptionalTargetContext">
+<summary>
+ Optional `TargetContext`
 </summary>
 </member>
 <member name="M:Fake.Core.TargetModule.runOrList">
@@ -5464,9 +5985,65 @@ common parameters
  Runs a target and its dependencies
 </summary>
 </member>
+<member name="M:Fake.Core.TargetModule.getArguments">
+<summary>
+ allows to retrieve the arguments passed into the current execution, 
+ when `Target.run*withArguments` overloads are used, see https://fake.build/core-targets.html#Targets-with-arguments
+ This function should be used at the start of your fake script
+ Alternatively, you can use Target.initEnvironment() instead,
+ Note: This function usually returns `Some [||]`, it will return `None` when 
+ No actual execution was requested (for example because of `--list`),
+ you shouldn&apos;t execute any side effects when `None` is returned 
+ (you should never execute side effects but you can use this flag to check if needed)
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.initEnvironment">
+<summary>
+ allows to initialize the environment before defining targets
+ This function should be used at the start of your fake script
+ see https://github.com/fsharp/FAKE/issues/2283
+ Alternatively, you can use Target.getArguments() instead
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.initAndProcess``1(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.TargetModule.ArgResults,``0})">
+<summary>
+ allows to initialize FAKE, see initEnvironment and getArguments
+</summary>
+</member>
+<member name="P:Fake.Core.TargetModule.privGetArgResults">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.TargetModule.removeArgResults">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.TargetModule.setArgResults">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.TargetModule.argResultsVar">
+<summary>
+ [omit]
+</summary>
+</member>
 <member name="M:Fake.Core.TargetModule.runAndGetContext(System.Int32,System.String,Microsoft.FSharp.Collections.FSharpList{System.String})">
 <summary>
- Runs a target and its dependencies, used for testing - usually not called in scripts.
+ Runs a target and its dependencies and returns a `TargetContext`
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.raiseIfError(Fake.Core.TargetModule.OptionalTargetContext)">
+<summary>
+ If `TargetContext option` is Some and has error, raise it as a BuildFailedException
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.updateBuildStatus(Fake.Core.TargetModule.OptionalTargetContext)">
+<summary>
+ Updates build status based on `OptionalTargetContext`
+ Will not update status if `OptionalTargetContext` is `MaybeSet` with value `None`
 </summary>
 </member>
 <member name="M:Fake.Core.TargetModule.deactivateFinal(System.String)">
@@ -5523,6 +6100,11 @@ common parameters
  <param name="verbose">Whether to print verbose output or not.</param>
  <param name="target">The target for which the dependencies should be printed.</param>
 </member>
+<member name="M:Fake.Core.TargetModule.writeInfoFile(System.String)">
+<summary>
+ List all targets available.
+</summary>
+</member>
 <member name="M:Fake.Core.TargetModule.listAvailable">
 <summary>
  List all targets available.
@@ -5545,13 +6127,13 @@ common parameters
  Creates a Target.
 </summary>
 </member>
-<member name="M:Fake.Core.TargetModule.addTargetWithDependencies(Microsoft.FSharp.Collections.FSharpList{System.String},Microsoft.FSharp.Core.FSharpFunc{Fake.Core.TargetParameter,Microsoft.FSharp.Core.Unit},System.String)">
+<member name="M:Fake.Core.TargetModule.addTargetWithDependencies(Microsoft.FSharp.Collections.FSharpList{Fake.Core.Dependency},Microsoft.FSharp.Core.FSharpFunc{Fake.Core.TargetParameter,Microsoft.FSharp.Core.Unit},System.String)">
 <summary>
  add a target with dependencies
  [omit]
 </summary>
 </member>
-<member name="M:Fake.Core.TargetModule.addTarget(Fake.Core.Target,System.String)">
+<member name="M:Fake.Core.TargetModule.addTarget(Fake.Core.InternalTarget,System.String)">
 <summary>
  Creates a target from template.
  [omit]
@@ -5586,15 +6168,9 @@ common parameters
  [omit]
 </summary>
 </member>
-<member name="M:Fake.Core.TargetModule.softDependencyAtEnd(System.String,System.String)">
+<member name="M:Fake.Core.TargetModule.softDependencyAtFront(System.String,System.String)">
 <summary>
  Appends the dependency to the list of soft dependencies.
- [omit]
-</summary>
-</member>
-<member name="M:Fake.Core.TargetModule.dependencyAtEnd(System.String,System.String)">
-<summary>
- Appends the dependency to the list of dependencies.
  [omit]
 </summary>
 </member>
@@ -5616,7 +6192,7 @@ common parameters
  [omit]
 </summary>
 </member>
-<member name="M:Fake.Core.TargetModule.checkIfDependencyCanBeAddedCore(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.Target,Microsoft.FSharp.Collections.FSharpList{System.String}},System.String,System.String)">
+<member name="M:Fake.Core.TargetModule.checkIfDependencyCanBeAddedCore(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.InternalTarget,Microsoft.FSharp.Collections.FSharpList{Fake.Core.Dependency}},System.String,System.String)">
 <summary>
  Checks whether the dependency (soft or normal) can be added.
  [omit]
@@ -5627,7 +6203,7 @@ common parameters
  Do nothing - Can be used to define empty targets.
 </summary>
 </member>
-<member name="M:Fake.Core.TargetModule.softDependencyString(Fake.Core.Target)">
+<member name="M:Fake.Core.TargetModule.softDependencyString(Fake.Core.InternalTarget)">
 <summary>
  Returns the soft  DependencyString for the given target.
 </summary>
@@ -5647,7 +6223,7 @@ common parameters
  Returns the DependencyString for the given target.
 </summary>
 </member>
-<member name="M:Fake.Core.TargetModule.get(System.String)">
+<member name="M:Fake.Core.TargetModule.getInternal(System.String)">
 <summary>
  Gets a target with the given name from the target dictionary.
 </summary>
@@ -5691,6 +6267,11 @@ common parameters
  [omit]
 </summary>
 </member>
+<member name="P:Fake.Core.TargetModule.collectStackVar">
+<summary>
+ [omit]
+</summary>
+</member>
 <member name="P:Fake.Core.TargetModule.lastDescriptionVar">
 <summary>
  [omit]
@@ -5699,6 +6280,31 @@ common parameters
 <member name="P:Fake.Core.TargetModule.printStackTraceOnErrorVar">
 <summary>
  [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.WithContext.runOrList">
+<summary>
+ Runs the target given by the target parameter or lists the available targets &amp; get context
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.WithContext.runOrDefaultWithArguments(System.String)">
+<summary>
+ Runs the command given on the command line or the given target when no target is given &amp; get context
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.WithContext.runOrDefault(System.String)">
+<summary>
+ Runs the command given on the command line or the given target when no target is given &amp; get context
+</summary>
+</member>
+<member name="M:Fake.Core.TargetModule.WithContext.run(System.Int32,System.String,Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Runs a target and its dependencies and returns an `OptionalTargetContext`
+</summary>
+</member>
+<member name="T:Fake.Core.TargetModule.WithContext">
+<summary>
+ Run functions which don&apos;t throw and return the context after all targets have been executed.
 </summary>
 </member>
 <member name="M:Fake.Core.TargetOperators.op_EqualsQmarkGreater(System.String,System.String,System.Boolean)">
@@ -6496,7 +7102,107 @@ common parameters
  [omit]
 </summary>
 </member>
-<member name="P:Fake.BuildServer.TeamCityWriter.sendCloseBlock">
+<member name="M:Fake.BuildServer.TeamCityWriter.sendMessage(System.String,System.String)">
+<summary>
+ Message
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendComparisonFailed(System.String,System.String,System.String,System.String,System.String)">
+<summary>
+ Comparison Failed
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestFailed(System.String,System.String,System.String)">
+<summary>
+ Test Failure
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendSetParameter(System.String,System.String)">
+<summary>
+ Set Parameter
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendBuildStatistic(System.String,System.String)">
+<summary>
+ Build Statistic
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendBuildNumber(System.String)">
+<summary>
+ Build Number
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendPublishNamedArtifact(System.String,System.String)">
+<summary>
+ Publish Named Artifact
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendPublishArtifact(System.String)">
+<summary>
+ Publish Artifact
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendProgressFinish(System.String)">
+<summary>
+ Progress Finish
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendProgressStart(System.String)">
+<summary>
+ Progress Start
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendProgressMessage(System.String)">
+<summary>
+ Progress Message
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestSuiteStarted(System.String)">
+<summary>
+ Test Suite Started
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestSuiteFinished(System.String)">
+<summary>
+ Test Suite Finished
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestStdError(System.String,System.String)">
+<summary>
+ Test Std Error
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestStdOut(System.String,System.String)">
+<summary>
+ Test Std Out
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestIgnored(System.String,System.String)">
+<summary>
+ Test Ignored
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestFinished(System.String,System.String)">
+<summary>
+ Test Finshed
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendTestStarted(System.String)">
+<summary>
+ Test Started
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendBuildProblem(System.String)">
+<summary>
+ Build Problem
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendBuildStatus(System.String,System.String)">
+<summary>
+ Build status
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCityWriter.sendCloseBlock(System.String)">
 <summary>
  Close Named Block
 </summary>
@@ -6506,9 +7212,9 @@ common parameters
  Open Named Block
 </summary>
 </member>
-<member name="M:Fake.BuildServer.TeamCityWriter.sendToTeamCity(Microsoft.FSharp.Core.PrintfFormat{Microsoft.FSharp.Core.FSharpFunc{System.String,System.String},Microsoft.FSharp.Core.Unit,System.String,System.String},System.String)">
+<member name="M:Fake.BuildServer.TeamCityWriter.sendToTeamCity(Fake.BuildServer.TeamCityWriter.TeamCityMessage)">
 <summary>
- Send message to TeamCity
+ Send message to TeamCity with single param
 </summary>
 </member>
 <member name="M:Fake.BuildServer.TeamCityWriter.encapsulateSpecialChars(System.String)">
@@ -6655,12 +7361,12 @@ common parameters
 </member>
 <member name="M:Fake.BuildServer.TeamCity.comparisonFailure(System.String,System.String,System.String,System.String,System.String)">
 <summary>
- Reports a failed comparison.
+ Reports a failed comparison
 </summary>
 </member>
 <member name="M:Fake.BuildServer.TeamCity.testFailed(System.String,System.String,System.String)">
 <summary>
- Reports a failed test.
+ Reports a failed test
 </summary>
 </member>
 <member name="M:Fake.BuildServer.TeamCity.setParameter(System.String,System.String)">
@@ -6678,6 +7384,11 @@ common parameters
  Sets the TeamCity build number.
 </summary>
 </member>
+<member name="M:Fake.BuildServer.TeamCity.publishNamedArtifact(System.String,System.String)">
+<summary>
+ Publishes an artifact on the TeamcCity build server with a name.
+</summary>
+</member>
 <member name="M:Fake.BuildServer.TeamCity.publishArtifact(System.String)">
 <summary>
  Publishes an artifact on the TeamcCity build server.
@@ -6686,12 +7397,6 @@ common parameters
 <member name="M:Fake.BuildServer.TeamCity.reportBuildStatus(System.String,System.String)">
 <summary>
  Reports the build status.
-</summary>
-</member>
-<member name="M:Fake.BuildServer.TeamCity.buildStatus(System.String,System.String)">
-<summary>
- Create  the build status.
- [omit]
 </summary>
 </member>
 <member name="M:Fake.BuildServer.TeamCity.reportProgressFinish(System.String)">
@@ -6787,6 +7492,11 @@ common parameters
 <member name="P:Fake.BuildServer.TeamCity.sendTeamCityDotCoverHome">
 <summary>
  Sends the full path to the dotCover home folder to override the bundled dotCover to TeamCity
+</summary>
+</member>
+<member name="M:Fake.BuildServer.TeamCity.reportBuildProblem(System.String)">
+<summary>
+ Reports build problem
 </summary>
 </member>
 <member name="M:Fake.BuildServer.TeamCity.sendTeamCityError(System.String)">
@@ -6954,6 +7664,13 @@ common parameters
 
 </summary>
 </member>
+<member name="P:Fake.Api.GitHub.CreateReleaseParams.TargetCommitish">
+<summary>
+ Commit hash or branch name that will be used to create the release tag.
+ Is not used if the tag already exists.
+ If left unspecified, and the tag does not already exist, the default branch is used instead.
+</summary>
+</member>
 <member name="P:Fake.Api.GitHub.CreateReleaseParams.Prerelease">
 <summary>
  Indicates whether the release will be created as a prerelease
@@ -7111,7 +7828,7 @@ common parameters
  Channel to which the message will be posted. Default value: Specified in your Slack Webhook configuration.
 </summary>
 </member>
-<member name="P:Fake.Api.Slack.NotificationParams.From">
+<member name="P:Fake.Api.Slack.NotificationParams.Username">
 <summary>
  Name the message will appear to be sent from. Default value: Specified in your Slack Webhook configuration.
 </summary>
@@ -11141,9 +11858,564 @@ get component refs from a directory component hierarchy
  NOTE: in System.Version 5.0 &gt;= 5.0.0.0 is false while 5.0.0.0 &gt;= 5.0 is true...
 </summary>
 </member>
+<member name="P:Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams.Retries">
+<summary>
+ Specifies how often nuget should try to restore the packages - default is 5
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams">
+<summary>
+ RestorePackages parameter path for single packages
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Restore.RestorePackageParams.Retries">
+<summary>
+ Specifies how often nuget should try to restore the packages - default is 5
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore.RestorePackageParams">
+<summary>
+ RestorePackages parameter path
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore.NugetRestoreVerbosity">
+<summary>
+ RestorePackages Verbosity settings
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestoreMSSolutionPackages(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestorePackageParams,Fake.DotNet.NuGet.Restore.RestorePackageParams},System.String)">
+<summary>
+ Restores the packages in the given solution file file from NuGet.
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `solutionFile` - The microsoft sln file name.
+
+ ## Sample
+
+     Target &quot;RestorePackages&quot; (fun _ -&gt;
+          &quot;./src/Everything.sln&quot;
+          |&gt; RestoreMSSolutionPackages (fun p -&gt;
+              { p with
+                  Sources = &quot;http://myNugetSources.com&quot; :: p.Sources
+                  OutputPath = outputDir
+                  Retries = 4 })
+      )
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestorePackages">
+<summary>
+ Restores all packages from NuGet to the default directories by scanning for packages.config files in any subdirectory.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestorePackage(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestorePackageParams,Fake.DotNet.NuGet.Restore.RestorePackageParams},System.String)">
+<summary>
+ Restores the packages in the given packages.config file from NuGet.
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `packageFile` - The packages.config file name.
+
+ ## Sample
+
+     Target &quot;RestorePackages&quot; (fun _ -&gt;
+          &quot;./src/ProjectA/packages.config&quot;
+          |&gt; RestorePackage (fun p -&gt;
+              { p with
+                  Sources = &quot;http://myNugetSources.com&quot; :: p.Sources
+                  OutputPath = outputDir
+                  Retries = 4 })
+      )
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestorePackageId(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams,Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams},System.String)">
+<summary>
+ Restores the given package from NuGet
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.buildNuGetArgs(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams,Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams},System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.buildSources(Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.runNuGetTrial(System.Int32,System.String,System.TimeSpan,System.String,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.runNuGet(System.String,System.TimeSpan,System.String,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Restore.RestoreSinglePackageDefaults">
+<summary>
+ RestoreSinglePackageParams defaults parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Restore.RestorePackageDefaults">
+<summary>
+ RestorePackage defaults parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.findNuget(System.String)">
+<summary>
+ Looks for NuGet.exe in [1] the specified defaultPath, [2] a list of standard tool folders, [3] any subfolder in the current directory, [4] the PATH - returns the first path where NuGet.exe was found.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore">
+<summary>
+ Contains tasks which allow to restore NuGet packages from a NuGet package feed like [nuget.org](http://www.nuget.org).
+ There is also a tutorial about [nuget package restore](../nuget.html) available.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet.NuSpecPackage">
+<summary>
+ NuSpec metadata type
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.PushTrials">
+<summary>
+ Number of times to retry pushing the package
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.Timeout">
+<summary>
+ Specifies the timeout for pushing to a server.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.SymbolSource">
+<summary>
+ Specifies the symbol server URL.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.SymbolApiKey">
+<summary>
+ The API key for the symbol server.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.Source">
+<summary>
+ Specifies the server URL. This option is required unless DefaultPushSource config value is set in the NuGet config file.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.NoServiceEndpoint">
+<summary>
+ Doesn&apos;t append &quot;api/v2/package&quot; to the source URL.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.NoSymbols">
+<summary>
+ Doesn&apos;t push symbols (even if present).
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.ApiKey">
+<summary>
+ The API key for the server
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.DisableBuffering">
+<summary>
+ Disables buffering when pushing to an HTTP(S) server to reduce memory usage.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet.NuGetPushParams">
+<summary>
+ dotnet nuget push command options
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet.NuGetParams">
+<summary>
+ Nuget parameter type
+</summary>
+</member>
+<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.Nuspec">
+<summary>
+ Build a symbol package using the nuspec file
+</summary>
+</member>
+<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.ProjectFile">
+<summary>
+ Build a symbol package using a project file, if provided
+</summary>
+</member>
+<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.None">
+<summary>
+ Do not build symbol packages
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getDependencies(System.String)">
+<summary>
+ Returns the dependencies from specified packages.config file
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.downloadPackage(System.String,Fake.DotNet.NuGet.NuGet.NuSpecPackage)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getLatestPackage(System.String,System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getFeedPackagesFromUrl(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getPackage(System.String,System.String,System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.extractFeedPackageFromXml(System.Xml.XmlNode)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getRepoUrl">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.discoverRepoUrl">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.galleryV1">
+<summary>
+ Default NuGet feed
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getNuspecProperties(System.String)">
+<summary>
+ Parses nuspec metadata from a nuspec file.
+ ## Parameters
+
+  - `nuspec` - The .nuspec file content.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGet(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
+<summary>
+ Creates a new NuGet package, and optionally publishes it.
+ Template parameter substitution is performed when passing a .nuspec
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `nuspecOrProjectFile` - The .nuspec file name.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPublish(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams})">
+<summary>
+ Publishes a NuGet package to the nuget server.
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPack(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
+<summary>
+ Creates a new NuGet package based on the given .nuspec or project file.
+ Template parameter substitution is performed when passing a .nuspec
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `nuspecOrProjectFile` - The .nuspec or project file name.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPackDirectly(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
+<summary>
+ Creates a new NuGet package based on the given .nuspec or project file.
+ The .nuspec / projectfile is passed as-is (no templating is performed)
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `nuspecOrProjectFile` - The .nuspec or project file name.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.publishSymbols(Fake.DotNet.NuGet.NuGet.NuGetParams)">
+<summary>
+ push package to symbol server (and try again if something fails)
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.pack(Fake.DotNet.NuGet.NuGet.NuGetParams,System.String)">
+<summary>
+ Creates a NuGet package without templating (including symbols package if enabled)
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.GetPackageVersion(System.String,System.String)">
+<summary>
+ Gets the version no. for a given package in the deployments folder
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.RequireExactly(System.String)">
+<summary>
+ Creates a string which tells NuGet that you require exactly this package version.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetDefaults">
+<summary>
+ NuGet default parameters
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet">
+<summary>
+ Contains helper functions and task which allow to inspect, create and publish [NuGet](https://www.nuget.org/) packages.
+ There is also a tutorial about [nuget package creating](../create-nuget-package.html) available.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.ConfigFile">
+<summary>
+ NuGet configuration file. Default `None`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.NonInteractive">
+<summary>
+ Do not prompt for user input or confirmations. Default `true`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Prerelease">
+<summary>
+ Allows updating to prerelease versions. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Verbose">
+<summary>
+ Show verbose output while updating. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Safe">
+<summary>
+ Looks for updates with the highest version available within the same major and minor version as the installed package. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.RepositoryPath">
+<summary>
+ Folder to store packages in. Default `./packages`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Version">
+<summary>
+ Version to update to. Default `None`. Used to upgrade/downgrade to a explicit version of a package.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Ids">
+<summary>
+ Packages to update. Update all if empty.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Sources">
+<summary>
+ Nuget feeds to search updates in. Use default if empty.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Retries">
+<summary>
+ Number of retries if update fails.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.TimeOut">
+<summary>
+ Timeout for the update.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.ToolPath">
+<summary>
+ Path to the nuget.exe.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Update.NugetUpdateParams">
+<summary>
+ Nuget update parameters.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Update.NugetUpdate(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Update.NugetUpdateParams,Fake.DotNet.NuGet.Update.NugetUpdateParams},System.String)">
+<summary>
+ Update packages specified in the package file.
+
+ Fails if packages are not installed; see [nuget bug](https://nuget.codeplex.com/workitem/3874).
+ Fails if packages file has no corresponding VS project; see [nuget bug](https://nuget.codeplex.com/workitem/3875).
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default parameters.
+  - `packagesFile` - Path to the `*.sln`, `*.*proj` or `packages.config` file.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Update.buildArgs(Fake.DotNet.NuGet.Update.NugetUpdateParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateDefaults">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Update">
+<summary>
+ Contains tasks for updating NuGet packages including assembly hint paths in the project files using the [nuget.exe update command](http://docs.nuget.org/docs/reference/command-line-reference#Update_Command).
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ConfigFile">
+<summary>
+ NuGet configuration file. Default `None`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.NoCache">
+<summary>
+ Disable looking up packages from local machine cache. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.NonInteractive">
+<summary>
+ Do not prompt for user input or confirmations. Default `true`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Verbosity">
+<summary>
+ Display this amount of details in the output: normal, quiet, detailed. Default `normal`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.OutputDirectory">
+<summary>
+ Specifies the directory in which packages will be installed. Default  `./packages/`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Prerelease">
+<summary>
+ Allows updating to prerelease versions. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ExcludeVersion">
+<summary>
+ If set, the destination directory will contain only the package name, not the version number. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Version">
+<summary>
+ The version of the package to install.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Sources">
+<summary>
+ Nuget feeds to search updates in. Use default if empty.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Retries">
+<summary>
+ Number of retries if update fails.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.TimeOut">
+<summary>
+ Timeout for the update.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ToolPath">
+<summary>
+ Path to the nuget.exe.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Install.NugetInstallParams">
+<summary>
+ Nuget install parameters.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Install.NugetInstallVerbosity">
+<summary>
+ Nuget install verbosity mode.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Install.NugetInstall(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Install.NugetInstallParams,Fake.DotNet.NuGet.Install.NugetInstallParams},System.String)">
+<summary>
+ Installs the given package.
+
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default parameters.
+  - `packagesFile` - Path to the `*.sln`, `*.*proj` or `packages.config` file, or simply a NuGet package name
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Install.buildArgs(Fake.DotNet.NuGet.Install.NugetInstallParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Install.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallDefaults">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Install">
+<summary>
+ Contains tasks for installing NuGet packages using the [nuget.exe install command](http://docs.nuget.org/docs/reference/command-line-reference#Install_Command).
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.NuGetVersionArg.Default">
+<summary>
+ Default arguments to compute next NuGet version number
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Version.NuGetVersionArg">
+<summary>
+ Arguments for the next NuGet version number computing
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.nextVersion(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Version.NuGetVersionArg,Fake.DotNet.NuGet.Version.NuGetVersionArg})">
+<summary>
+ Compute next NuGet version number
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.getLastNuGetVersion(System.String,System.String)">
+<summary>
+ Retrieve current NuGet version number
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.IncMajor(Fake.Core.SemVerInfo)">
+<summary>
+ Increment major version
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.IncMinor(Fake.Core.SemVerInfo)">
+<summary>
+ Increment minor version
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.IncPatch(Fake.Core.SemVerInfo)">
+<summary>
+ Increment patch version
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.NuGetPushOptions">
+<summary>
+ nuget push paramters for `dotnet nuget push`
+</summary>
+</member>
 <member name="P:Fake.DotNet.DotNet.TestOptions.MSBuildParams">
 <summary>
  Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Blame">
+<summary>
+ Runs the tests in blame mode. This option is helpful in isolating the problematic tests causing test host to crash. It creates an output file in the current directory as Sequence.xml that captures the order of tests execution before the crash.  (--blame)
 </summary>
 </member>
 <member name="P:Fake.DotNet.DotNet.TestOptions.RunSettingsArguments">
@@ -11253,12 +12525,17 @@ Configuration to use for building the project.  Default for most projects is  &q
 </member>
 <member name="T:Fake.DotNet.DotNet.TestOptions">
 <summary>
- dotnet build command options
+ dotnet test command options
 </summary>
 </member>
 <member name="P:Fake.DotNet.DotNet.BuildOptions.MSBuildParams">
 <summary>
  Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.NoRestore">
+<summary>
+ Doesn&apos;t execute an implicit restore during build. (--no-restore)
 </summary>
 </member>
 <member name="P:Fake.DotNet.DotNet.BuildOptions.Native">
@@ -11331,9 +12608,33 @@ Configuration to use for building the project.  Default for most projects is  &q
  Other msbuild specific parameters
 </summary>
 </member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Force">
+<summary>
+ Force all dependencies to be resolved even if the last restore was successful.
+ This is equivalent to deleting project.assets.json. (--force)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.NoRestore">
+<summary>
+ Doesn&apos;t execute an implicit restore when running the command. (--no-restore)
+</summary>
+</member>
 <member name="P:Fake.DotNet.DotNet.PublishOptions.NoBuild">
 <summary>
  No build flag (--no-build)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.SelfContained">
+<summary>
+ Publish the .NET Core runtime with your application so the runtime doesn&apos;t need to be installed on the target machine.
+ The default is &apos;true&apos; if a runtime identifier is specified. (--self-contained)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Manifest">
+<summary>
+ Specifies one or several target manifests to use to trim the set of packages published with the app.
+ The manifest file is part of the output of the dotnet store command.
+ This option is available starting with .NET Core 2.0 SDK. (--manifest)
 </summary>
 </member>
 <member name="P:Fake.DotNet.DotNet.PublishOptions.VersionSuffix">
@@ -11404,6 +12705,11 @@ Configuration to use for building the project.  Default for most projects is  &q
 <member name="P:Fake.DotNet.DotNet.PackOptions.MSBuildParams">
 <summary>
  Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.NoRestore">
+<summary>
+ Doesn&apos;t execute an implicit restore when running the command. (--no-restore)
 </summary>
 </member>
 <member name="P:Fake.DotNet.DotNet.PackOptions.NoBuild">
@@ -11683,6 +12989,12 @@ Configuration to use for building the project.  Default for most projects is  &q
  NOTE: This field is ignored when UseShellExecute is true.
 </summary>
 </member>
+<member name="P:Fake.DotNet.DotNet.Options.PrintRedirectedOutput">
+<summary>
+ If RedirectOutput is true this flag decides if FAKE emits the output into the standard output/error otherwise the flag is ignored.
+ True by default.
+</summary>
+</member>
 <member name="P:Fake.DotNet.DotNet.Options.RedirectOutput">
 <summary>
  If true the function will redirect the output of the called process (but will disable colors, false by default)
@@ -11723,6 +13035,11 @@ Configuration to use for building the project.  Default for most projects is  &q
  Sets a value indicating whether the output for the given process is redirected.
 </summary>
 </member>
+<member name="M:Fake.DotNet.DotNet.Options.WithPrintRedirectedOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the redirected output should be printed to standard-output/error stream.
+</summary>
+</member>
 <member name="M:Fake.DotNet.DotNet.Options.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
 <summary>
  Sets the current environment variables.
@@ -11731,6 +13048,13 @@ Configuration to use for building the project.  Default for most projects is  &q
 <member name="M:Fake.DotNet.DotNet.Options.WithCommon``1(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,``0})">
 <summary>
  Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Options.Create">
+<summary>
+ Create a default setup for executing the `dotnet` command line.
+ This function tries to take current `global.json` into account and tries to find the correct installation.
+ To overwrite this behavior set `DotNetCliPath` manually (for example to the first result of `ProcessUtils.findFilesOnPath &quot;dotnet&quot;`)
 </summary>
 </member>
 <member name="T:Fake.DotNet.DotNet.Options">
@@ -11763,6 +13087,11 @@ Configuration to use for building the project.  Default for most projects is  &q
  Architecture
 </summary>
 </member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.ForceInstall">
+<summary>
+ Always download and run the installer, ignore potentiall existing installations.
+</summary>
+</member>
 <member name="P:Fake.DotNet.DotNet.CliInstallOptions.CustomInstallDir">
 <summary>
  Custom installation directory (for local build installation)
@@ -11775,7 +13104,15 @@ Configuration to use for building the project.  Default for most projects is  &q
 </member>
 <member name="P:Fake.DotNet.DotNet.CliInstallOptions.Channel">
 <summary>
- .NET Core SDK channel (defaults to normalized installer branch)
+ Specifies the source channel for the installation. The possible values are:
+ - `Current` - Most current release.
+ - `LTS` - Long-Term Support channel (most current supported release).
+ - Two-part version in `X.Y` format representing a specific release (for example, `2.0` or `1.0`).
+ - Branch name. For example, release/2.0.0, release/2.0.0-preview2, or master (for nightly releases).
+ 
+ The default value is `LTS`. For more information on .NET support channels, see the .NET Support Policy page.
+ 
+ Use the `CliChannel` module, for example `CliChannel.Current`
 </summary>
 </member>
 <member name="P:Fake.DotNet.DotNet.CliInstallOptions.InstallerOptions">
@@ -11800,17 +13137,17 @@ Configuration to use for building the project.  Default for most projects is  &q
 </member>
 <member name="T:Fake.DotNet.DotNet.CliVersion.Version">
 <summary>
- 4-part version in a format A.B.C.D - represents specific version of build
+ Three-part version in X.Y.Z format representing a specific build version; supersedes the -Channel option. For example: 2.0.0-preview2-006120.
 </summary>
 </member>
-<member name="T:Fake.DotNet.DotNet.CliVersion.Lkg">
+<member name="T:Fake.DotNet.DotNet.CliVersion.Coherent">
 <summary>
-  last known good version on specific channel (Note: LKG work is in progress. Once the work is finished, this will become new default)
+ Latest coherent build on the channel; uses the latest stable package combination (used with Branch name -Channel options).
 </summary>
 </member>
 <member name="T:Fake.DotNet.DotNet.CliVersion.Latest">
 <summary>
- most latest build on specific channel
+  Latest build on the channel (used with the -Channel option).
 </summary>
 </member>
 <member name="T:Fake.DotNet.DotNet.CliVersion">
@@ -11848,13 +13185,37 @@ Configuration to use for building the project.  Default for most projects is  &q
  .NET Core SDK installer download options
 </summary>
 </member>
-<member name="M:Fake.DotNet.DotNet.test(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.TestOptions,Fake.DotNet.DotNet.TestOptions},System.String)">
+<member name="M:Fake.DotNet.DotNet.nugetPush(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.NuGetPushOptions,Fake.DotNet.DotNet.NuGetPushOptions},System.String)">
 <summary>
- Execute dotnet build command
+ Execute dotnet nuget push command
  ## Parameters
 
- - &apos;setParams&apos; - set compile command parameters
- - &apos;project&apos; - project to compile
+ - &apos;setParams&apos; - set nuget push command parameters
+ - &apos;nupkg&apos; - nupkg to publish
+ 
+ ## Sample
+
+     open Fake.DotNet
+     let setNugetPushParams (defaults:NuGet.NuGetPushParams) =
+             { defaults with
+                 DisableBuffering = true
+                 ApiKey = Some &quot;abc123&quot;
+              }
+     let setParams (defaults:DotNet.NuGetPushOptions) =
+             { defaults with
+                 PushParams = setNugetPushParams defaults.PushParams
+              }
+     
+     DotNet.nugetPush setParams &quot;./My.Package.nupkg&quot;
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.test(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.TestOptions,Fake.DotNet.DotNet.TestOptions},System.String)">
+<summary>
+ Execute dotnet test command
+ ## Parameters
+
+ - &apos;setParams&apos; - set test command parameters
+ - &apos;project&apos; - project to test
 </summary>
 </member>
 <member name="M:Fake.DotNet.DotNet.buildTestArgs(Fake.DotNet.DotNet.TestOptions)">
@@ -11996,6 +13357,11 @@ Configuration to use for building the project.  Default for most projects is  &q
  [omit]
 </summary>
 </member>
+<member name="M:Fake.DotNet.DotNet.argOptionExplicit``1(System.String,``0)">
+<summary>
+ [omit]
+</summary>
+</member>
 <member name="M:Fake.DotNet.DotNet.argOption(System.String,System.Boolean)">
 <summary>
  [omit]
@@ -12078,9 +13444,21 @@ Configuration to use for building the project.  Default for most projects is  &q
  This file can exist in the working directory or any of the parent directories
 </summary>
 </member>
+<member name="M:Fake.DotNet.DotNet.tryGetSDKVersionFromGlobalJson">
+<summary>
+ Tries the DotNet SDK from the global.json
+ This file can exist in the working directory or any of the parent directories
+ Returns None if global.json is not found
+</summary>
+</member>
 <member name="M:Fake.DotNet.DotNet.getSDKVersionFromGlobalJsonDir(System.String)">
 <summary>
  Gets the DotNet SDK from the global.json, starts searching in the given directory.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.tryGetSDKVersionFromGlobalJsonDir(System.String)">
+<summary>
+ Tries to get the DotNet SDK from the global.json, starts searching in the given directory. Returns None if global.json is not found
 </summary>
 </member>
 <member name="P:Fake.DotNet.DotNet.defaultSystemInstallDir">
@@ -12140,504 +13518,29 @@ Configuration to use for building the project.  Default for most projects is  &q
  The a list of well-known versions to install
 </summary>
 </member>
-<member name="P:Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams.Retries">
+<member name="M:Fake.DotNet.DotNet.CliChannel.Branch``1(``0)">
 <summary>
- Specifies how often nuget should try to restore the packages - default is 5
+ Branch name. For example, release/2.0.0, release/2.0.0-preview2, or master (for nightly releases).
 </summary>
 </member>
-<member name="T:Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams">
+<member name="M:Fake.DotNet.DotNet.CliChannel.Version(System.Int32,System.Int32)">
 <summary>
- RestorePackages parameter path for single packages
+ Two-part version in X.Y format representing a specific release (for example, 2.0 or 1.0).
 </summary>
 </member>
-<member name="P:Fake.DotNet.NuGet.Restore.RestorePackageParams.Retries">
+<member name="P:Fake.DotNet.DotNet.CliChannel.Current">
 <summary>
- Specifies how often nuget should try to restore the packages - default is 5
+ Most current release.
 </summary>
 </member>
-<member name="T:Fake.DotNet.NuGet.Restore.RestorePackageParams">
+<member name="P:Fake.DotNet.DotNet.CliChannel.LTS">
 <summary>
- RestorePackages parameter path
+ Long-Term Support channel (most current supported release).
 </summary>
 </member>
-<member name="T:Fake.DotNet.NuGet.Restore.NugetRestoreVerbosity">
+<member name="T:Fake.DotNet.DotNet.CliChannel">
 <summary>
- RestorePackages Verbosity settings
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.RestoreMSSolutionPackages(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestorePackageParams,Fake.DotNet.NuGet.Restore.RestorePackageParams},System.String)">
-<summary>
- Restores the packages in the given solution file file from NuGet.
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default NuGet parameters.
-  - `solutionFile` - The microsoft sln file name.
-
- ## Sample
-
-     Target &quot;RestorePackages&quot; (fun _ -&gt;
-          &quot;./src/Everything.sln&quot;
-          |&gt; RestoreMSSolutionPackages (fun p -&gt;
-              { p with
-                  Sources = &quot;http://myNugetSources.com&quot; :: p.Sources
-                  OutputPath = outputDir
-                  Retries = 4 })
-      )
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.RestorePackages">
-<summary>
- Restores all packages from NuGet to the default directories by scanning for packages.config files in any subdirectory.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.RestorePackage(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestorePackageParams,Fake.DotNet.NuGet.Restore.RestorePackageParams},System.String)">
-<summary>
- Restores the packages in the given packages.config file from NuGet.
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default NuGet parameters.
-  - `packageFile` - The packages.config file name.
-
- ## Sample
-
-     Target &quot;RestorePackages&quot; (fun _ -&gt;
-          &quot;./src/ProjectA/packages.config&quot;
-          |&gt; RestorePackage (fun p -&gt;
-              { p with
-                  Sources = &quot;http://myNugetSources.com&quot; :: p.Sources
-                  OutputPath = outputDir
-                  Retries = 4 })
-      )
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.RestorePackageId(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams,Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams},System.String)">
-<summary>
- Restores the given package from NuGet
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.buildNuGetArgs(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams,Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams},System.String)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.buildSources(Microsoft.FSharp.Collections.FSharpList{System.String})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.runNuGetTrial(System.Int32,System.String,System.TimeSpan,System.String,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.runNuGet(System.String,System.TimeSpan,System.String,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Restore.RestoreSinglePackageDefaults">
-<summary>
- RestoreSinglePackageParams defaults parameters
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Restore.RestorePackageDefaults">
-<summary>
- RestorePackage defaults parameters
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Restore.findNuget(System.String)">
-<summary>
- Looks for NuGet.exe in [1] the specified defaultPath, [2] a list of standard tool folders, [3] any subfolder in the current directory, [4] the PATH - returns the first path where NuGet.exe was found.
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.Restore">
-<summary>
- Contains tasks which allow to restore NuGet packages from a NuGet package feed like [nuget.org](http://www.nuget.org).
- There is also a tutorial about [nuget package restore](../nuget.html) available.
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.NuGet.NuSpecPackage">
-<summary>
- NuSpec metadata type
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.NuGet.NuGetParams">
-<summary>
- Nuget parameter type
-</summary>
-</member>
-<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.Nuspec">
-<summary>
- Build a symbol package using the nuspec file
-</summary>
-</member>
-<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.ProjectFile">
-<summary>
- Build a symbol package using a project file, if provided
-</summary>
-</member>
-<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.None">
-<summary>
- Do not build symbol packages
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.getDependencies(System.String)">
-<summary>
- Returns the dependencies from specified packages.config file
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.downloadPackage(System.String,Fake.DotNet.NuGet.NuGet.NuSpecPackage)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.getLatestPackage(System.String,System.String)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.getFeedPackagesFromUrl(System.String)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.getPackage(System.String,System.String,System.String)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.extractFeedPackageFromXml(System.Xml.XmlNode)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.getRepoUrl">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.NuGet.discoverRepoUrl">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.NuGet.feedUrl">
-<summary>
- Default NuGet feed
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.getNuspecProperties(System.String)">
-<summary>
- Parses nuspec metadata from a nuspec file.
- ## Parameters
-
-  - `nuspec` - The .nuspec file content.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.NuGet(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
-<summary>
- Creates a new NuGet package, and optionally publishes it.
- Template parameter substitution is performed when passing a .nuspec
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default NuGet parameters.
-  - `nuspecOrProjectFile` - The .nuspec file name.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPublish(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams})">
-<summary>
- Publishes a NuGet package to the nuget server.
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default NuGet parameters.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPack(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
-<summary>
- Creates a new NuGet package based on the given .nuspec or project file.
- Template parameter substitution is performed when passing a .nuspec
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default NuGet parameters.
-  - `nuspecOrProjectFile` - The .nuspec or project file name.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPackDirectly(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
-<summary>
- Creates a new NuGet package based on the given .nuspec or project file.
- The .nuspec / projectfile is passed as-is (no templating is performed)
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default NuGet parameters.
-  - `nuspecOrProjectFile` - The .nuspec or project file name.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.publishSymbols(Fake.DotNet.NuGet.NuGet.NuGetParams)">
-<summary>
- push package to symbol server (and try again if something fails)
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.publish(Fake.DotNet.NuGet.NuGet.NuGetParams)">
-<summary>
- push package (and try again if something fails)
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.pack(Fake.DotNet.NuGet.NuGet.NuGetParams,System.String)">
-<summary>
- Creates a NuGet package without templating (including symbols package if enabled)
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.GetPackageVersion(System.String,System.String)">
-<summary>
- Gets the version no. for a given package in the deployments folder
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.RequireExactly(System.String)">
-<summary>
- Creates a string which tells NuGet that you require exactly this package version.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.NuGet.NuGetDefaults">
-<summary>
- NuGet default parameters
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.NuGet">
-<summary>
- Contains helper functions and task which allow to inspect, create and publish [NuGet](https://www.nuget.org/) packages.
- There is also a tutorial about [nuget package creating](../create-nuget-package.html) available.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.ConfigFile">
-<summary>
- NuGet configuration file. Default `None`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.NonInteractive">
-<summary>
- Do not prompt for user input or confirmations. Default `true`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Prerelease">
-<summary>
- Allows updating to prerelease versions. Default `false`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Verbose">
-<summary>
- Show verbose output while updating. Default `false`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Safe">
-<summary>
- Looks for updates with the highest version available within the same major and minor version as the installed package. Default `false`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.RepositoryPath">
-<summary>
- Folder to store packages in. Default `./packages`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Version">
-<summary>
- Version to update to. Default `None`. Used to upgrade/downgrade to a explicit version of a package.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Ids">
-<summary>
- Packages to update. Update all if empty.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Sources">
-<summary>
- Nuget feeds to search updates in. Use default if empty.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Retries">
-<summary>
- Number of retries if update fails.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.TimeOut">
-<summary>
- Timeout for the update.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.ToolPath">
-<summary>
- Path to the nuget.exe.
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.Update.NugetUpdateParams">
-<summary>
- Nuget update parameters.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Update.NugetUpdate(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Update.NugetUpdateParams,Fake.DotNet.NuGet.Update.NugetUpdateParams},System.String)">
-<summary>
- Update packages specified in the package file.
-
- Fails if packages are not installed; see [nuget bug](https://nuget.codeplex.com/workitem/3874).
- Fails if packages file has no corresponding VS project; see [nuget bug](https://nuget.codeplex.com/workitem/3875).
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default parameters.
-  - `packagesFile` - Path to the `*.sln`, `*.*proj` or `packages.config` file.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Update.buildArgs(Fake.DotNet.NuGet.Update.NugetUpdateParams)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateDefaults">
-<summary>
- Parameter default values.
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.Update">
-<summary>
- Contains tasks for updating NuGet packages including assembly hint paths in the project files using the [nuget.exe update command](http://docs.nuget.org/docs/reference/command-line-reference#Update_Command).
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ConfigFile">
-<summary>
- NuGet configuration file. Default `None`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.NoCache">
-<summary>
- Disable looking up packages from local machine cache. Default `false`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.NonInteractive">
-<summary>
- Do not prompt for user input or confirmations. Default `true`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Verbosity">
-<summary>
- Display this amount of details in the output: normal, quiet, detailed. Default `normal`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.OutputDirectory">
-<summary>
- Specifies the directory in which packages will be installed. Default  `./packages/`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Prerelease">
-<summary>
- Allows updating to prerelease versions. Default `false`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ExcludeVersion">
-<summary>
- If set, the destination directory will contain only the package name, not the version number. Default `false`.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Version">
-<summary>
- The version of the package to install.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Sources">
-<summary>
- Nuget feeds to search updates in. Use default if empty.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Retries">
-<summary>
- Number of retries if update fails.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.TimeOut">
-<summary>
- Timeout for the update.
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ToolPath">
-<summary>
- Path to the nuget.exe.
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.Install.NugetInstallParams">
-<summary>
- Nuget install parameters.
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.Install.NugetInstallVerbosity">
-<summary>
- Nuget install verbosity mode.
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Install.NugetInstall(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Install.NugetInstallParams,Fake.DotNet.NuGet.Install.NugetInstallParams},System.String)">
-<summary>
- Installs the given package.
-
- ## Parameters
-
-  - `setParams` - Function used to manipulate the default parameters.
-  - `packagesFile` - Path to the `*.sln`, `*.*proj` or `packages.config` file, or simply a NuGet package name
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Install.buildArgs(Fake.DotNet.NuGet.Install.NugetInstallParams)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Install.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="P:Fake.DotNet.NuGet.Install.NugetInstallDefaults">
-<summary>
- Parameter default values.
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.Install">
-<summary>
- Contains tasks for installing NuGet packages using the [nuget.exe install command](http://docs.nuget.org/docs/reference/command-line-reference#Install_Command).
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Version.NuGetVersionArg.Default">
-<summary>
- Default arguments to compute next NuGet version number
-</summary>
-</member>
-<member name="T:Fake.DotNet.NuGet.Version.NuGetVersionArg">
-<summary>
- Arguments for the next NuGet version number computing
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Version.nextVersion(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Version.NuGetVersionArg,Fake.DotNet.NuGet.Version.NuGetVersionArg})">
-<summary>
- Compute next NuGet version number
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Version.getLastNuGetVersion(System.String,System.String)">
-<summary>
- Retrieve current NuGet version number
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Version.IncMajor(Fake.Core.SemVerInfo)">
-<summary>
- Increment major version
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Version.IncMinor(Fake.Core.SemVerInfo)">
-<summary>
- Increment minor version
-</summary>
-</member>
-<member name="M:Fake.DotNet.NuGet.Version.IncPatch(Fake.Core.SemVerInfo)">
-<summary>
- Increment patch version
+ Specifies the source channel for the installation. 
 </summary>
 </member>
 <member name="M:Fake.DotNet.FSFormatting.run(System.String,System.String)">
@@ -13751,9 +14654,14 @@ Common Error Result type for tracing errors
  Ignore ML compatibility warnings
 </summary>
 </member>
+<member name="P:Fake.DotNet.Fsi.FsiParams.Definitions">
+<summary>
+ Define a list of conditional compilation symbols
+</summary>
+</member>
 <member name="P:Fake.DotNet.Fsi.FsiParams.Define">
 <summary>
- Define a conditional compilation symbols
+ (Obsolete) Define a conditional compilation symbol (use FsiParams.Definitions instead)
 </summary>
 </member>
 <member name="P:Fake.DotNet.Fsi.FsiParams.Checked">
@@ -14716,7 +15624,17 @@ Common Error Result type for tracing errors
 </member>
 <member name="T:Fake.DotNet.Testing.NUnit3">
 <summary>
- Contains tasks to run [NUnit](http://www.nunit.org/) unit tests in parallel.
+ Contains tasks to run [NUnit](http://www.nunit.org/) unit tests.
+
+ ### Sample
+
+        Target.create &quot;Test&quot; (fun _ -&gt;
+            !! (testDir + &quot;/NUnit.Test.*.dll&quot;)
+              |&gt; NUnit3.run (fun p -&gt;
+                  {p with
+                        ShadowCopy = false })
+        )
+
 </summary>
 </member>
 <member name="P:Fake.DotNet.Testing.MSTest.MSTestParams.NoIsolation">
@@ -24014,6 +24932,11 @@ hidden
 <member name="M:Fake.DynamicsNav.createRTCConnectionInfo(System.String,System.String,System.String,System.Int32,System.String)">
 <summary>
  Creates the connection information to a Dynamics NAV RTC instance
+</summary>
+</member>
+<member name="M:Fake.DynamicsNav.FullCompile(Fake.DynamicsNav.DynamicsNavParams)">
+<summary>
+ Compiles all objects in the Dynamics NAV client including already compiled ones.
 </summary>
 </member>
 <member name="M:Fake.DynamicsNav.CompileAll(Fake.DynamicsNav.DynamicsNavParams)">

@@ -675,6 +675,14 @@
  Arguments are specified without requiring a switch.
 </summary>
 </member>
+<member name="T:Argu.ArguAttributes.SubCommandAttribute">
+<summary>
+ Declares that argument is a subcommand.
+ A parse exception will be raised if the argument has parameters
+ and their type is not ParseResults&lt;_&gt;.
+ Implicit if the argument does have a parameter of type ParseResults&lt;_&gt;.
+</summary>
+</member>
 <member name="T:Argu.ArguAttributes.LastAttribute">
 <summary>
  Declares that argument can only be placed at the end of the CLI syntax.
@@ -1184,14 +1192,14 @@
  construct an App.Config param from UCI name
 </summary>
 </member>
+<member name="M:Argu.PreCompute.generateOptionName(Microsoft.FSharp.Reflection.UnionCaseInfo,System.Object[],System.Object[])">
+<summary>
+ construct a CLI param from UCI name
+</summary>
+</member>
 <member name="M:Argu.PreCompute.generateEnumName(System.String)">
 <summary>
  Generate a CLI Param for enumeration cases
-</summary>
-</member>
-<member name="M:Argu.PreCompute.generateOptionName(Microsoft.FSharp.Reflection.UnionCaseInfo)">
-<summary>
- construct a CLI param from UCI name
 </summary>
 </member>
 <member name="M:Argu.PreCompute.Helpers.groupedSwitchRegex(System.Lazy{Argu.UnionArgInfo.UnionCaseArgInfo[]},System.Lazy{Argu.UnionArgInfo.UnionCaseArgInfo[]},Argu.UnionArgInfo.HelpParam)">
