@@ -55,7 +55,7 @@ module FSharpUnity =
                     |>ignore
                 )
 
-            fsharpProj.SetProperty("OutputPath",unityProjectLocation)
+            fsharpProj.SetProperty("OutputPath",fsharpBuildLocation)
             |>ignore
 
             match fsharpProj.GetItems "Reference"
